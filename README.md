@@ -14,6 +14,12 @@
     version of your app whether or not your customers have internet access.
 
 
+### Usage
+
+Projects will only use the compiled files in `deployment`. Any contributers
+can work on files in `src` and push changes to `deployment` by running gulp.
+
+
 ### Installation
 
 Run `npm install` from within the `src` directory to install required
