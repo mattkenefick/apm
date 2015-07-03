@@ -6,6 +6,6 @@
  * @version 0.0.1
  */
 
-// apm.core.http = apm.core.events.extend({
+apm.core.http = apm.core.events.extend({
 
-// });
+});
