@@ -8,4 +8,9 @@
 
 apm.modules.javascript = apm.core.module.extend({
 
+    /**
+     * class name
+     */
+    name: "apm_modules_javascript",
+
 });

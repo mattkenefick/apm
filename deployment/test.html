@@ -1,3 +1,4 @@
+
 <script src="apm.js"></script>
 
 <script>
@@ -6,17 +7,18 @@
         appName: "my-application",
         appUrl: "http://www.polymermallard.com/apps",
         css: {
-            // version: "~1.0.0",
-            filename: "compiled.css"
+            version: "~1.0.0",
+            filename: "compiled.css",
+            onRemoteFailure: apm.nothing,
+            onRemoteSuccess: apm.nothing,
+            onSuccess: apm.nothing
         },
         javascript: {
             filename: "main.js",
             version: "latest",
-            options: {
-                onRemoteFailure: apm.nothing,
-                onRemoteSuccess: apm.nothing,
-                onSuccess: apm.nothing
-            }
+            onRemoteFailure: apm.nothing,
+            onRemoteSuccess: apm.nothing,
+            onSuccess: apm.nothing
         },
         html: {
             version: "latest",
@@ -29,6 +31,6 @@
         }
     });
 
-    apm.modules.javascript.on("farts");
+    console.log( apm.javascript );
 
 </script>

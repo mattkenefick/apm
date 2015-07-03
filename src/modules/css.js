@@ -8,4 +8,9 @@
 
 apm.modules.css = apm.core.module.extend({
 
+    /**
+     * class name
+     */
+    name: "apm_modules_css",
+
 });

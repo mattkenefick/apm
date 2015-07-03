@@ -9,6 +9,11 @@
 apm.core.module = apm.core.events.extend({
 
     /**
+     * class name
+     */
+    name: "apm_core_module",
+
+    /**
      * filename <string>
      * @default null
      */
