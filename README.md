@@ -15,6 +15,15 @@
     version of your app whether or not your customers have internet access.
 
 
+### Notes
+
+    This is a work in progress, started on July 3rd 2015. The ideology is taken
+    from what ChalkySticks runs on. This repository is a consolidation of code
+    required to perform these tasks.
+
+    As of July 3rd, 2015, this project is not functional yet. There are functional
+    items in other projects that still need to be implemented.
+
 ### Usage
 
 Projects will only use the compiled files in `deployment`. Any contributers
