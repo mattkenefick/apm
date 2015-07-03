@@ -1,6 +1,19 @@
 ## APM
 #### Application Package Manager
 
+    APM stands for Application Package Manager. It manages dependencies for an
+    HTML5 based application, that will be stored locally for faster loading and
+    to circumvent cellular/wifi requirements.
+
+    An HTML5 mobile web application requires markup, styles, and scripts to run.
+    In order to auto update, the assets need to be updated based on versioning.
+    This project acts as a loader for those assets to keep everything up-to-date
+    and able to run locally without internet connectivity.
+
+    Plug this in and you'll be able to always automatically maintain the latest
+    version of your app whether or not your customers have internet access.
+
+
 ### Installation
 
 Run `npm install` from within the `src` directory to install required
