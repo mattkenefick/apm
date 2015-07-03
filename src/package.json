@@ -1,0 +1,15 @@
+{
+  "name": "apm",
+  "version": "0.0.1",
+  "description": "Application Package Manager",
+  "dependencies": {
+    "gulp"       : "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*",
+    "gulp-rename": "*"
+  },
+  "devDependencies": {
+    "gulp-util": "*",
+    "shelljs": "*"
+  }
+}
