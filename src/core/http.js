@@ -17,7 +17,7 @@ apm.core.http = apm.core.events.extend({
      * GET
      *
      */
-    GET: function(url, callback) {
+    GET: function(url, callback, error) {
         var xhr;
 
         xhr = this.xhr = new XMLHttpRequest;
@@ -26,6 +26,9 @@ apm.core.http = apm.core.events.extend({
             if (xhr.readyState === 4) { // done
                 if (xhr.status === 200) { // complete
                     callback && callback(xhr.responseText)
+                }
+                else if (xhr.status >= 400) {
+                    error && error(xhr);
                 }
             }
         };

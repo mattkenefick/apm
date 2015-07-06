@@ -9,6 +9,8 @@ var uglify       = require('gulp-uglify');
 var paths = {
     js: [
         './apm.js',
+        './core/log.js',
+        './core/md5.js',
         './core/extend.js',
         './core/events.js',
         './core/http.js',
