@@ -38,7 +38,7 @@ files.
 
 ### Compiling / Assets
 
-Run `gulp` or `gulp watch` to compile Javascript required for the app. It
+Run `gulp` or `gulp watch` within the `src` directory to compile Javascript required for the app. It
 is exported out to the `deployment` directory.
 
 ### Example Setup
