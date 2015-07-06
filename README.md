@@ -47,6 +47,8 @@ is exported out to the `deployment` directory.
         appName: "my-application",
         appUrl: "http://www.polymermallard.com/apps",
         css: {
+            cache: true,
+            expires: 60 * 60 * 24,
             version: "~1.0.0",
             filename: "compiled.css",
             onRemoteFailure: apm.nothing,
@@ -54,6 +56,7 @@ is exported out to the `deployment` directory.
             onSuccess: apm.nothing
         },
         javascript: {
+            cache: false,
             filename: "main.js",
             version: "latest",
             onRemoteFailure: apm.nothing,
@@ -64,11 +67,9 @@ is exported out to the `deployment` directory.
             version: "latest",
             filename: "template.html",
             options: {
+                beforeElement: apm.null,
                 replaceElement: "#templates",
                 appendToElement: apm.null,
-                onSuccess: apm.nothing
             }
         }
     });
-
-    console.log( apm.javascript );
