@@ -14,14 +14,14 @@ apm.modules.html = apm.core.module.extend({
     name: "apm_modules_html",
 
     render: function(response) {
-        var div = document.createElement('div');
-            div.innerHTML = response;
-
         if (this.options.replaceElement) {
-            this.replaceElement(this.options.replaceElement, div);
+            this.replaceElement(this.options.replaceElement, response);
+        }
+        else if (this.options.beforeElement) {
+            this.beforeElement(this.options.beforeElement, response);
         }
         else if (this.options.appendToElement) {
-            this.appendToElement(this.options.appendToElement, div);
+            this.appendToElement(this.options.appendToElement, response);
         }
     },
 
@@ -29,15 +29,26 @@ apm.modules.html = apm.core.module.extend({
     // Private Methods
     // ----------------------------------------------------
 
-    replaceElement: function() {
+    replaceElement: function(find, response) {
+        var target = document.querySelector(find),
+            docfrag = document.createRange().createContextualFragment(response);
 
+        target.parentNode.insertBefore(docfrag, target);
+        target.parentNode.removeChild(target);
     },
 
-    appendToElement: function(find, replace) {
-        // note, this is incorrect, but functions
-        var target = document.querySelector(find);
+    beforeElement: function(find, response) {
+        var target = document.querySelector(find),
+            docfrag = document.createRange().createContextualFragment(response);
 
-        target.innerHTML = replace.innerHTML;
+        target.parentNode.insertBefore(docfrag, target);
+    },
+
+    appendToElement: function(find, response) {
+        var target = document.querySelector(find),
+            docfrag = document.createRange().createContextualFragment(response);
+
+        target.appendChild(docfrag);
     }
 
 });

@@ -4,8 +4,10 @@
 
     </head>
     <body>
-        <h1>Test Headline</h1>
-        <p>Test Paragraph</p>
+        <main>
+            <h1>Test Headline</h1>
+            <p>Test Paragraph</p>
+        </main>
 
         <script src="apm.js"></script>
 
@@ -32,8 +34,9 @@
                     version: "latest",
                     filename: "template.html",
                     options: {
-                        replaceElement: apm.null,
-                        appendToElement: "body"
+                        beforeElement: apm.null,
+                        replaceElement: "main",
+                        appendToElement: apm.null
                     }
                 }
             });
