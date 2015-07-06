@@ -29,7 +29,7 @@ _apm = {
     },
 
     loadModules: function() {
-        var value;
+        var module, value;
 
         // cycle through options to see what modules to load
         for (var key in this.options) {
@@ -37,17 +37,31 @@ _apm = {
 
             // if a module exists in our repo, create it
             if (this.modules[key]) {
-                this[key] = this.loadModule(key, this.options[key]);
+                module = this[key] = this.loadModule(key, this.options[key], {
+                    appName: this.options.appName,
+                    appUrl: this.options.appUrl
+                });
+
+                // load it
+                module.load();
             }
         };
     },
 
-    loadModule: function(type, options) {
+    loadModule: function(type, moduleOptions, appOptions) {
         var module = new this.modules[type];
 
-        if (options) {
-            for (var i in options) {
-                module[i] = options[i];
+        // add options specific to this module
+        if (moduleOptions) {
+            for (var i in moduleOptions) {
+                module[i] = moduleOptions[i];
+            }
+        }
+
+        // add general application options required
+        if (appOptions) {
+            for (var i in appOptions) {
+                module[i] = appOptions[i];
             }
         }
 

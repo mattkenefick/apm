@@ -1,36 +1,43 @@
+<html>
+    <head>
+        <title>Test | APM</title>
 
-<script src="apm.js"></script>
+    </head>
+    <body>
+        <h1>Test Headline</h1>
+        <p>Test Paragraph</p>
 
-<script>
+        <script src="apm.js"></script>
 
-    apm.load({
-        appName: "my-application",
-        appUrl: "http://www.polymermallard.com/apps",
-        css: {
-            version: "~1.0.0",
-            filename: "compiled.css",
-            onRemoteFailure: apm.nothing,
-            onRemoteSuccess: apm.nothing,
-            onSuccess: apm.nothing
-        },
-        javascript: {
-            filename: "main.js",
-            version: "latest",
-            onRemoteFailure: apm.nothing,
-            onRemoteSuccess: apm.nothing,
-            onSuccess: apm.nothing
-        },
-        html: {
-            version: "latest",
-            filename: "template.html",
-            options: {
-                replaceElement: "#templates",
-                appendToElement: apm.null,
-                onSuccess: apm.nothing
-            }
-        }
-    });
+        <script>
 
-    console.log( apm.javascript );
+            apm.load({
+                appName: "my-application",
+                appUrl: "http://localhost/Projects/APM/deployment/test/apps",
+                css: {
+                    version: "~1.0.0",
+                    filename: "compiled.css",
+                    onRemoteFailure: apm.nothing,
+                    onRemoteSuccess: apm.nothing,
+                    onSuccess: apm.nothing
+                },
+                javascript: {
+                    filename: "compiled.js",
+                    version: "latest",
+                    onRemoteFailure: apm.nothing,
+                    onRemoteSuccess: apm.nothing,
+                    onSuccess: apm.nothing
+                },
+                html: {
+                    version: "latest",
+                    filename: "template.html",
+                    options: {
+                        replaceElement: apm.null,
+                        appendToElement: "body"
+                    }
+                }
+            });
 
-</script>
+        </script>
+    </body>
+</html>

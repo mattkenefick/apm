@@ -1,0 +1,1 @@
+;(function(namespace) { console.log('compiled.js loaded'); }) (window.bob = {});

@@ -29,7 +29,7 @@ _apm = {
     },
 
     loadModules: function() {
-        var value;
+        var module, value;
 
         // cycle through options to see what modules to load
         for (var key in this.options) {
@@ -37,17 +37,31 @@ _apm = {
 
             // if a module exists in our repo, create it
             if (this.modules[key]) {
-                this[key] = this.loadModule(key, this.options[key]);
+                module = this[key] = this.loadModule(key, this.options[key], {
+                    appName: this.options.appName,
+                    appUrl: this.options.appUrl
+                });
+
+                // load it
+                module.load();
             }
         };
     },
 
-    loadModule: function(type, options) {
+    loadModule: function(type, moduleOptions, appOptions) {
         var module = new this.modules[type];
 
-        if (options) {
-            for (var i in options) {
-                module[i] = options[i];
+        // add options specific to this module
+        if (moduleOptions) {
+            for (var i in moduleOptions) {
+                module[i] = moduleOptions[i];
+            }
+        }
+
+        // add general application options required
+        if (appOptions) {
+            for (var i in appOptions) {
+                module[i] = appOptions[i];
             }
         }
 
@@ -175,9 +189,45 @@ apm.core.events = apm.class.extend({
  * @version 0.0.1
  */
 
-// apm.core.http = apm.core.events.extend({
+apm.core.http = apm.core.events.extend({
 
-// });
+    /**
+     * xmlhttprequest
+     */
+    xhr: null,
+
+    /**
+     * GET
+     *
+     */
+    GET: function(url, callback) {
+        var xhr;
+
+        xhr = this.xhr = new XMLHttpRequest;
+        this.xhr.open("GET", url, true);
+        this.xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) { // done
+                if (xhr.status === 200) { // complete
+                    callback && callback(xhr.responseText)
+                }
+            }
+        };
+        this.xhr.send();
+    },
+
+    POST: function(url, callback) {
+
+    },
+
+    PUT: function(url, callback) {
+
+    },
+
+    DELETE: function(url, callback) {
+
+    }
+
+});
 
 
 /**
@@ -206,9 +256,59 @@ apm.core.module = apm.core.events.extend({
      */
     version: "latest",
 
+    /**
+     * autoRender <boolean>
+     * @default true
+     */
+    autoRender: true,
+
+    /**
+     * reponse from the server
+     */
+    response: null,
+
+
+    // Public Methods
+    // -------------------------
+
+    load: function() {
+        var scope = this,
+            url   = this.getUrl(),
+            http  = new apm.core.http;
+
+        http.GET(url, function(response) {
+            scope.response = response;
+
+            // do we auto render after load?
+            if (scope.autoRender) {
+                scope.render(response);
+            }
+
+        });
+    },
+
+    render: function() {
+        console.warn("Core module render hasn't been setup yet");
+    },
+
+
+    // Getters / Setters
+    // -------------------------
+
+    getUrl: function() {
+        var baseUrl = this.appUrl.replace(/\/$/, ""),
+            appName = this.appName.replace(/\/$/, ""),
+            filename = this.filename.replace(/\/$/, ""),
+            url;
+
+        url = [baseUrl, appName, filename].join("/")
+
+        return url;
+    },
+
 
     // Event Handlers
-    // ------------------------------------------------------------
+    // -------------------------
 
     onRemoteFailure: function() {
 
@@ -238,6 +338,25 @@ apm.modules.css = apm.core.module.extend({
      * class name
      */
     name: "apm_modules_css",
+
+    render: function(response) {
+        return this._renderByHeadTags(response);
+    },
+
+
+    // Private Methods
+    // ---------------------------------------------------
+
+    _renderByHeadTags: function(response) {
+        var style = document.createElement("style");
+            style.innerHTML = response;
+
+        document.head.appendChild(style);
+    },
+
+    _renderByStylesheets: function(response) {
+
+    }
 
 });
 
@@ -273,6 +392,33 @@ apm.modules.html = apm.core.module.extend({
      */
     name: "apm_modules_html",
 
+    render: function(response) {
+        var div = document.createElement('div');
+            div.innerHTML = response;
+
+        if (this.options.replaceElement) {
+            this.replaceElement(this.options.replaceElement, div);
+        }
+        else if (this.options.appendToElement) {
+            this.appendToElement(this.options.appendToElement, div);
+        }
+    },
+
+
+    // Private Methods
+    // ----------------------------------------------------
+
+    replaceElement: function() {
+
+    },
+
+    appendToElement: function(find, replace) {
+        // note, this is incorrect, but functions
+        var target = document.querySelector(find);
+
+        target.innerHTML = replace.innerHTML;
+    }
+
 });
 
 
@@ -306,5 +452,23 @@ apm.modules.javascript = apm.core.module.extend({
      * class name
      */
     name: "apm_modules_javascript",
+
+    render: function(response) {
+        return this._renderByFunction(response);
+        // return this._renderByEval(response);
+    },
+
+
+    // Private Methods
+    // -------------------------------------------
+
+    _renderByEval: function(response) {
+        window.eval(response);
+    },
+
+    _renderByFunction: function(response) {
+        var f = new Function(response);
+        f();
+    }
 
 });
