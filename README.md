@@ -49,7 +49,7 @@ is exported out to the `deployment` directory.
         css: {
             cache: true,
             expires: 60 * 60 * 24,
-            version: "~1.0.0",
+            version: "1.3",
             filename: "compiled.css",
             onRemoteFailure: apm.nothing,
             onRemoteSuccess: apm.nothing,
