@@ -31,7 +31,7 @@ apm.modules.html = apm.core.module.extend({
 
     replaceElement: function(find, response) {
         var target = document.querySelector(find),
-            docfrag = document.createRange().createContextualFragment(response);
+            docfrag = this.createFragment(response);
 
         target.parentNode.insertBefore(docfrag, target);
         target.parentNode.removeChild(target);
@@ -39,16 +39,25 @@ apm.modules.html = apm.core.module.extend({
 
     beforeElement: function(find, response) {
         var target = document.querySelector(find),
-            docfrag = document.createRange().createContextualFragment(response);
+            docfrag = this.createFragment(response);
 
         target.parentNode.insertBefore(docfrag, target);
     },
 
     appendToElement: function(find, response) {
-        var target = document.querySelector(find),
-            docfrag = document.createRange().createContextualFragment(response);
+        var target = document.querySelector(find);
+            docfrag = this.createFragment(response);
 
         target.appendChild(docfrag);
+    },
+
+    createFragment: function(response) {
+        // return document.createRange().createContextualFragment(response);
+
+        var node = document.createElement('div');
+            node.innerHTML = response;
+
+        return node.firstChild;
     }
 
 });
