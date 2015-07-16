@@ -953,24 +953,37 @@ apm.modules.html = apm.core.module.extend({
 
     replaceElement: function(find, response) {
         var target = document.querySelector(find),
-            docfrag = this.createFragment(response);
+            docfrag = this.createFragment(response),
+            nodeCount = docfrag.children.length;
 
-        target.parentNode.insertBefore(docfrag, target);
+        // target.parentNode.insertBefore(docfrag, target);
+
+        for (var i = 0; i < nodeCount; i++) {
+            target.parentNode.insertBefore(docfrag.children[0], target);
+        };
         target.parentNode.removeChild(target);
     },
 
     beforeElement: function(find, response) {
         var target = document.querySelector(find),
-            docfrag = this.createFragment(response);
+            docfrag = this.createFragment(response),
+            nodeCount = docfrag.children.length;
 
-        target.parentNode.insertBefore(docfrag, target);
+        // target.parentNode.insertBefore(docfrag, target);
+
+        for (var i = 0; i < nodeCount; i++) {
+            target.parentNode.insertBefore(docfrag.children[0], target);
+        };
     },
 
     appendToElement: function(find, response) {
         var target = document.querySelector(find);
-            docfrag = this.createFragment(response);
+            docfrag = this.createFragment(response),
+            nodeCount = docfrag.children.length;
 
-        target.appendChild(docfrag);
+        for (var i = 0; i < nodeCount; i++) {
+            target.appendChild(docfrag.children[0]);
+        };
     },
 
     createFragment: function(response) {
@@ -979,7 +992,7 @@ apm.modules.html = apm.core.module.extend({
         var node = document.createElement('div');
             node.innerHTML = response;
 
-        return node.firstChild;
+        return node;
     }
 
 });
